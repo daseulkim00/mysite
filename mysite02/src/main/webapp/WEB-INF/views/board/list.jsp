@@ -15,11 +15,12 @@
 <body>
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
+		
 		<div id="content">
 			<div id="board">
 				<form id="search_form" action="" method="post">
-					<input type="text" id="kwd" name="kwd" value=""> <input
-						type="submit" value="찾기">
+					<input type="text" id="kwd" name="kwd" value="">
+					<inputtype="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
 					<tr>
@@ -72,7 +73,7 @@
 				<!-- pager 추가 -->
 
 				<div class="bottom">
-					<a href="" id="new-book">글쓰기</a>
+					<a href="${pageContext.request.contextPath }/board?g=write" id="new-book">글쓰기</a>
 				</div>
 			</div>
 		</div>

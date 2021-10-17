@@ -26,6 +26,7 @@ public class WriteAction implements Action {
 		
 		new GuestbookDao().insert(vo);
 		
+	
 		MvcUtil.redirect(request.getContextPath() +"/guestbook?g=list", request, response);
 		
 	}

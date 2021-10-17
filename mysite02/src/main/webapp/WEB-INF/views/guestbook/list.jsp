@@ -18,19 +18,18 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="guestbook">
-				<form action="${pageContext.request.contextPath }/guestbook?g=write"
-					method="post">
+				<form action="${pageContext.request.contextPath }/guestbook?g=write" method="post">
 					<!-- 얘를 db로넘기는 액션을 먼저 마들어줘야함 -->
 					<input type="hidden" name="a" value="insert">
 					<table>
 						<tr>
 							<td>이름</td>
-							<td><input type="text" name="name"></td>
+							<td><input type="text" name="name" required="required"></td>
 							<td>비밀번호</td>
-							<td><input type="password" name="password"></td>
+							<td><input type="password" name="password" required="required"></td>
 						</tr>
 						<tr>
-							<td colspan=4><textarea name="message" id="content"></textarea></td>
+							<td colspan=4><textarea name="message" id="content" required="required"></textarea></td>
 						</tr>
 						<tr>
 							<td colspan=4 align=right><input type="submit" VALUE=" 확인 "></td>

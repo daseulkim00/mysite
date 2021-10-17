@@ -11,6 +11,21 @@ import java.util.List;
 import com.douzone.mysite.vo.GuestbookVo;
 
 public class GuestbookDao {
+	
+	private Connection getConnection() throws SQLException {
+		Connection conn = null;
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			String url = "jdbc:mysql://127.0.0.1:3306/webdb?characterEncoding=utf8";
+			conn = DriverManager.getConnection(url, "webdb", "webdb");
+		} catch (ClassNotFoundException e) {
+			System.out.println("드라이버 로딩 실패:" + e);
+		} 
+		
+		return conn;
+	}	
+	
+	
 	public List<GuestbookVo> findAll() {
 		List<GuestbookVo> list = new ArrayList<>();
 		
@@ -143,16 +158,5 @@ public class GuestbookDao {
 		return result;
 	}
 	
-	private Connection getConnection() throws SQLException {
-		Connection conn = null;
-		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			String url = "jdbc:mysql://127.0.0.1:3306/webdb?characterEncoding=utf8";
-			conn = DriverManager.getConnection(url, "webdb", "webdb");
-		} catch (ClassNotFoundException e) {
-			System.out.println("드라이버 로딩 실패:" + e);
-		} 
-		
-		return conn;
-	}	
+
 }

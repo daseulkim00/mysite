@@ -18,7 +18,9 @@ public class UpdateFormAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Access Control(보안, 인증체크) 보안,인증이들어간건 중복되니깐 나중에 빼 낸다. 게시판 만들때 들어가 있어야한다
 		HttpSession session = request.getSession();
+		
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		
 		if (authUser == null) {
 			MvcUtil.redirect(request.getContextPath(), request, response);
 			return;
