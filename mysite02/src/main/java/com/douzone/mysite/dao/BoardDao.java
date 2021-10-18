@@ -30,7 +30,7 @@ public class BoardDao {
 		return conn;
 	}
 
-		// select
+		// select findall
 	public List<BoardDto> findAll() {
 		List<BoardDto> list = new ArrayList<>();
 
@@ -42,7 +42,7 @@ public class BoardDao {
 			conn = getConnection();
 
 			String url = "select a.no, a.title, a.contents, a.hit, a.reg_date as regDate, a.group_no as groupNo, a.order_no as orderNo, a.depth, b.name as userName"
-					+ " from board a ,user b" + " where a.user_no = b";
+					+ " from board a ,user b" + " where a.user_no = b.no";
 
 			pstmt = conn.prepareStatement(url);
 
@@ -97,6 +97,65 @@ public class BoardDao {
 		return list;
 	}
 
+	// select 
+	
+	public BoardDto findByNo(Long no) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardDto dto = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql= "select a.no, a.title, a.contents, a.hit, a.reg_date as regDate, a.group_no as groupNo, a.order_no as orderNo, a.depth, b.name as userName"
+						+ " from board a ,user b" + " where a.user_no = b.no and a.no=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1, no);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Long bno = rs.getLong(1);
+				String title = rs.getString(2);
+				String contents = rs.getString(3);
+				
+				
+				dto = new BoardDto();
+				
+				dto.setNo(bno);
+				dto.setTitle(title);
+				dto.setContents(contents);
+				
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} finally {
+
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		return dto;
+		
+		
+		
+	}
+	
 		// insert
 
 	public void insert(BoardVo vo) {
@@ -107,18 +166,14 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 
-			String sql = "insert into board values (null, ?, ? , 0,  now(), (SELECT IFNULL(MAX(group_no) + 1, 1) FROM board b), 0, 0, ?)";
+			String sql = "insert into board values (null, ?, ? , 0,  now(), (SELECT IFNULL(MAX(group_no) + 1, 1) "
+						+ " FROM board b), 0, 0, ?)";
 
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, vo.getTitle());
 			pstmt.setString(2, vo.getContents());
-			pstmt.setLong(3, vo.getHit());
-			pstmt.setString(4, vo.getRegDate());
-			pstmt.setLong(5, vo.getGroupNo());
-			pstmt.setLong(6, vo.getOrderNo());
-			pstmt.setLong(7, vo.getDepth());
-			pstmt.setLong(8, vo.getUserNo());
+			pstmt.setLong(3, vo.getUserNo());
 
 			pstmt.executeUpdate();
 

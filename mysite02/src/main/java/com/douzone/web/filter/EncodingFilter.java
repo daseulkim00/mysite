@@ -23,7 +23,7 @@ public class EncodingFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		//request
 		
-		System.out.println("UTF-8");
+		// System.out.println("UTF-8");
 		chain.doFilter(request, response);  //필터끼리 체인으로 연결되어있당
 		
 		//response
