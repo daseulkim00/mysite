@@ -25,6 +25,8 @@ public class WriteAction implements Action {
 			return;
 		}
 		
+		////////////////////////////////////////////////////////////////////
+		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		Long userNo = authUser.getNo();
