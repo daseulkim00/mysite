@@ -19,7 +19,7 @@
 			<div id="board">
 				<form id="search_form" action="" method="post">
 					<input type="text" id="kwd" name="kwd" value="">
-					<inputtype="submit" value="찾기">
+					<input type="submit" value="찾기">
 				</form>
 				<table class="tbl-ex">
 					<tr>
@@ -33,8 +33,17 @@
 					
 					<c:forEach items="${list }" var="board" varStatus="status">
 						<tr>
-							<td>${status.count}</td>                   <!-- ${20*vo.depth } -->
-							<td style="text-align:left; padding-left:20px"><a href="${pageContext.servletContext.contextPath }/board?g=view&no=${board.no }">${board.title }</a></td>
+							<%-- ${20*board.depth } --%>
+							<td>${status.count}</td>
+							<c:choose>
+								 <c:when test="${board.depth == 0}">
+									 <td style="text-align:left; padding-left:0px"><a href="${pageContext.servletContext.contextPath }/board?g=view&no=${board.no }">${board.title }</a></td>
+								 </c:when>
+								 <c:otherwise>
+									 <td style="text-align:left; padding-left:${20*board.depth }px"><img src='${pageContext.request.contextPath }/assets/images/reply.png' /><a href="${pageContext.servletContext.contextPath }/board?g=view&no=${board.no }">${board.title }</a></td>
+							 	</c:otherwise>
+							</c:choose>                  
+							
 							<td>${board.userName }</td>
 							<td>${board.hit }</td>
 							<td>${board.regDate }</td>

@@ -42,7 +42,8 @@ public class BoardDao {
 			conn = getConnection();
 
 			String url = "select a.no, a.title, a.contents, a.hit, a.reg_date as regDate, a.group_no as groupNo, a.order_no as orderNo, a.depth, b.name as userName"
-					+ " from board a ,user b" + " where a.user_no = b.no";
+					+ " from board a ,user b" + " where a.user_no = b.no"
+					+ "  order by group_no desc , order_no desc";
 
 			pstmt = conn.prepareStatement(url);
 
@@ -209,7 +210,7 @@ public class BoardDao {
 			conn = getConnection();
 
 			String sql = "insert into board values (null, ?, ? , 0,  now(), (SELECT IFNULL(MAX(group_no) + 1, 1) "
-					+ " FROM board b), 0, 0, ?)";
+					  + " FROM board b), 0, 0, ?)";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -235,6 +236,7 @@ public class BoardDao {
 		}
 
 	}
+	
 
 	// delete
 
@@ -310,6 +312,62 @@ public class BoardDao {
 			}
 		}
 		return result;
+	}
+
+	public void insertreply(BoardVo vo) {
+		Connection conn = null;
+		PreparedStatement pstmt,pstmt1,pstmt2 = null;
+		ResultSet rs = null;
+		System.out.println("리플라이 메서드 실행");
+		try {
+			conn = getConnection();
+			
+			String sql="select group_no, depth from board where no=?";   // 부모에게서 ? no 를 가진 group_no와 depth를 select 한다.
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setLong(1,vo.getNo());
+			
+			rs = pstmt.executeQuery();
+			System.out.println("select완료");
+			
+			if(rs.next()) {
+				
+				Long groupno = rs.getLong(1);
+				Long depth = rs.getLong(2);
+				
+				//update
+				String sql1 = "update board set order_no=order_no+1 where group_no =? and order_no >= 0";
+				pstmt1 = conn.prepareStatement(sql1);
+				
+				pstmt1.setLong(1, groupno);
+				
+				pstmt1.executeUpdate();
+				System.out.println("update 완료");
+				
+				//insert
+				String sql2 = "insert into board values(null, ?, ? ,0 ,now(), ?, 0 ,?, ?)";
+				
+				pstmt2 = conn.prepareStatement(sql2);
+				
+				pstmt2.setString(1, vo.getTitle());
+				pstmt2.setString(2, vo.getContents());
+				pstmt2.setLong(3, groupno);
+				pstmt2.setLong(4, depth +1);
+				pstmt2.setLong(5, vo.getUserNo());
+				
+				pstmt2.executeUpdate();
+				System.out.println("insert 완료");
+				
+			}else {
+				System.out.println("그룹넘버 없음!");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }

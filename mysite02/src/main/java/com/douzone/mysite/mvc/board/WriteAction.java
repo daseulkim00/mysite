@@ -18,6 +18,7 @@ public class WriteAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// 로그인 확인
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo) session.getAttribute("authUser");	
 		if(authUser == null) {
@@ -25,23 +26,48 @@ public class WriteAction implements Action {
 			return;
 		}
 		
+		
 		////////////////////////////////////////////////////////////////////
 		
+		
+		System.out.println("dsfddfsdfsdf" + request.getParameter("reply"));
+		Long reply;
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		Long userNo = authUser.getNo();
 		
-		
-		BoardVo vo = new BoardVo();
-		vo.setTitle(title);
-		vo.setContents(content);
-		vo.setUserNo(userNo);
-		
-		new BoardDao().insert(vo);
+		// reply(no)의 값이 없으면 첫 글이고 값이 잇으면 댓글로 넘어간다. 글을 안쓰면 글넘버(no)가 없지
+		if(request.getParameter("reply") == null || request.getParameter("reply").isEmpty()) {
+			System.out.println("reply 없음, 글쓰기 작성");
+			
+			BoardVo vo = new BoardVo();         
+			vo.setTitle(title);
+			vo.setContents(content);
+			vo.setUserNo(userNo);
+			
+			new BoardDao().insert(vo);
+			
+		}else {
+			reply = Long.parseLong(request.getParameter("reply"));
+			System.out.println("reply 있음, 댓글쓰기 작성");
+			System.out.println(authUser.getNo());
+			System.out.println(reply);
+			
+			BoardVo vo = new BoardVo();
+			vo.setTitle(title);
+			vo.setContents(content);
+			vo.setUserNo(userNo);
+			vo.setNo(reply);
+			new BoardDao().insertreply(vo);
+			
+		}
 		
 		MvcUtil.redirect(request.getContextPath() + "/board?g=list", request, response);
+			
+		}
+		
 		
 		
 	}
 
-}
+
