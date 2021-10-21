@@ -333,6 +333,7 @@ public class BoardDao {
 			
 			if(rs.next()) {
 				
+				// select에서 뽑아준 group_no와 depth를 이용하여 update,insert를 해준다.
 				Long groupno = rs.getLong(1);
 				Long depth = rs.getLong(2);
 				
