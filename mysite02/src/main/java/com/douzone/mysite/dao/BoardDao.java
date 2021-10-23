@@ -368,7 +368,45 @@ public class BoardDao {
 			e.printStackTrace();
 		}
 		
-		
+	}
+	
+	// hitupdate
+	
+	public boolean hitupdate(BoardVo vo) {
+		boolean result = false;
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+				
+			try {
+				conn = getConnection();
+				
+				String sql = "update board set hit = hit+1 where no = ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setLong(1,vo.getNo());
+				
+				int count = pstmt.executeUpdate();
+				result = count == 1;
+				
+			} catch (SQLException e) {
+				System.out.println("hit update error" + e);
+			}finally {
+				try {
+					if (pstmt != null) {
+						pstmt.close();
+					}
+					if (conn != null) {
+						conn.close();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				
+			}
+			return result;
+			
+			
 	}
 
 }

@@ -4,6 +4,7 @@
 #board { margin:20px auto;	width:550px; }
 
 
+
 #search_form {
 	width:100%;
 	margin:50px auto 20px auto; 
@@ -86,7 +87,9 @@ input#kwd	{
 
 tr.even td	{ background-color:#e8ecf6 }
 
-.tbl-ex a { text-decoration:none; font-weight:bold; }
+.tbl-ex a { text-decoration:none; 
+			font-weight:bold;
+			color:#333; }
 
 div.bottom {
 	width:100%;

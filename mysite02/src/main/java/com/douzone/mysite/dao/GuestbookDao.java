@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.douzone.mysite.vo.BoardVo;
 import com.douzone.mysite.vo.GuestbookVo;
 
 public class GuestbookDao {
@@ -156,6 +157,51 @@ public class GuestbookDao {
 		}		
 		
 		return result;
+	}
+
+	// finduserno
+	public BoardVo findUserNo(Long no) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardVo vo = null;
+		try {
+			conn = getConnection();
+
+			String sql = "select user_no " + " from board " + " where no= ?";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setLong(1, no);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Long uno = rs.getLong(1);
+
+				vo = new BoardVo();
+
+				vo.setNo(uno);
+			}
+
+		} catch (SQLException e) {
+			System.out.println("userno select error:" + e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (pstmt != null) {
+					pstmt.close();
+				}
+				if (conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return vo;
 	}
 	
 

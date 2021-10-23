@@ -21,6 +21,7 @@
 				<form action="${pageContext.request.contextPath }/guestbook?g=write" method="post">
 					<!-- 얘를 db로넘기는 액션을 먼저 마들어줘야함 -->
 					<input type="hidden" name="a" value="insert">
+					
 					<table>
 						<tr>
 							<td>이름</td>

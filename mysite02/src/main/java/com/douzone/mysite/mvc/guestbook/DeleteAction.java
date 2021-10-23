@@ -31,7 +31,7 @@ public class DeleteAction implements Action {
 		guestbookDao.delete(guestbookVo);
 		
 		// 삭제 한뒤 갈곳
-						//http://localhost:8080/mysite02
+		//http://localhost:8080/mysite02
 		MvcUtil.redirect(request.getContextPath() + "/guestbook?g=list", request, response);
 		
 		

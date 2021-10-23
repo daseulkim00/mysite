@@ -26,12 +26,10 @@ public class WriteAction implements Action {
 			return;
 		}
 		
-		
 		////////////////////////////////////////////////////////////////////
 		
-		
 		System.out.println("dsfddfsdfsdf" + request.getParameter("reply"));
-		Long reply;
+		Long reply;  // reply = no
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		Long userNo = authUser.getNo();
@@ -48,7 +46,7 @@ public class WriteAction implements Action {
 			new BoardDao().insert(vo);
 			
 		}else {
-			reply = Long.parseLong(request.getParameter("reply"));
+			reply = Long.parseLong(request.getParameter("reply"));  //문자로 들어오는 no를 long 타입으로 변경해주기 위해서
 			System.out.println("reply 있음, 댓글쓰기 작성");
 			System.out.println(authUser.getNo());
 			System.out.println(reply);
