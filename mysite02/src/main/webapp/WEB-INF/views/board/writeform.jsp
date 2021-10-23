@@ -15,25 +15,27 @@
 		
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board?g=write">
+				<form class="board-form" method="get" action="${pageContext.request.contextPath }/board">
 					<input type = "hidden" name = "g" value="write">
+					<!-- view에서 no(reply) 가져온다 -->
+					<input type = "hidden" name = "reply" value="${param.reply }"/>
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
 						</tr>
 						<tr>
 							<td class="label">제목</td>
-							<td><input type="text" name="title" value=""></td>
+							<td><input type="text" name="title"  required="required"></td>
 						</tr>
 						<tr>
 							<td class="label">내용</td>
 							<td>
-								<textarea id="content" name="content"></textarea>
+								<textarea id="content" name="content" required="required"></textarea>
 							</td>
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="/board">취소</a>
+						<a href="${pageContext.request.contextPath }/board?g=list">취소</a>
 						<input type="submit" value="등록">
 					</div>
 				</form>				
