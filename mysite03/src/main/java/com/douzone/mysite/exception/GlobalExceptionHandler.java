@@ -1,4 +1,4 @@
- package com.douzone.mysite.exception;
+package com.douzone.mysite.exception;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -25,7 +25,8 @@ public class GlobalExceptionHandler {
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
 		LOGGER.error(errors.toString());
-		
+
+				
 		// 2. 요청 구분
 		
 		// 3. 사과페이지(정상종료)
