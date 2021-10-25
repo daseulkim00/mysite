@@ -25,19 +25,27 @@ public class ViewAction implements Action {
 
 		request.setAttribute("dto", dto);
 
-		// 조회수- 따로 파라미터를 넘길필요없다. 자기가 클릭하면 조회수 안 올라감
+		// 조회수- 따로 파라미터를 넘길필요없다. 
 		HttpSession session = request.getSession();
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		
+		//로그잉ㄴ 안하면 게시판 글 볼 수 없음
+		if(authUser == null) {
+			MvcUtil.redirect(request.getContextPath(), request, response);
+			return;
+		}
+		
+		//자기가 클릭하면 조회수 안 올라감
 		BoardDao dao = new BoardDao();
 		BoardVo vo = new BoardVo();
 		
-		if(authUser.getNo() != dao.findUserNo(no).getNo()) {
-			
+		if (authUser.getNo() != dao.findUserNo(no).getNo()) {
 			vo.setNo(no);
 			dao.hitupdate(vo);
 		}
-				
+		
 		MvcUtil.forward("board/view", request, response);
+		
 	}
 
 }
