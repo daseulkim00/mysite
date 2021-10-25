@@ -64,10 +64,18 @@
 				url: "${pageContext.request.contextPath }/user/api/checkemail?email=" + email,
 				type: "get",
 				dataType:"json",
-				success: function (response) {
+				error: function(xhr, status, e){ //통신에러체크 
+					console.log(status, e);
+				},      
+				success: function(response) {
 					console.log(response);
+					if(response.result != "success") {
+						console.error(response.message);
+						return;
+					}
 					
-					if(response.exist){
+					
+					if(response.data){
 						alert("존재하는 이메일입니다. 다른 이메일을 사용하세요.")
 						$("#email").val("").focus();
 						return;
