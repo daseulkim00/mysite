@@ -11,6 +11,7 @@ public class BoardDto {
 	private Long orderNo;
 	private Long depth;
 	private String userName;
+	private String deleteCheck;//  삭제된글인지 아닌지
 	
 	public Long getNo() {
 		return no;

@@ -209,8 +209,7 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 
-			String sql = "insert into board values (null, ?, ? , 0,  now(), (SELECT IFNULL(MAX(group_no) + 1, 1) "
-					  + " FROM board b), 0, 0, ?)";
+			String sql = "insert into board values (null, ?, ? , 0,  now(), (SELECT IFNULL(MAX(group_no) + 1, 1) FROM board b), 0, 0, ?, 0)";
 
 			pstmt = conn.prepareStatement(sql);
 
@@ -322,7 +321,7 @@ public class BoardDao {
 		try {
 			conn = getConnection();
 			
-			String sql="select group_no, depth from board where no=?";   // 부모에게서 ? no 를 가진 group_no와 depth를 select 한다.
+			String sql="select group_no, order_no, depth from board where no=?";   // 부모에게서 ? no 를 가진 group_no와 depth를 select 한다.
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -333,29 +332,32 @@ public class BoardDao {
 			
 			if(rs.next()) {
 				
-				// select에서 뽑아준 group_no와 depth를 이용하여 update,insert를 해준다.
-				Long groupno = rs.getLong(1);
-				Long depth = rs.getLong(2);
+				// select에서 뽑아준 group_no, order_no와 depth를 이용하여 update,insert를 해준다.
+				Long groupno = rs.getLong("group_no");
+				Long orderNo = rs.getLong("order_no");
+				Long depth = rs.getLong("depth");
 				
 				//update
-				String sql1 = "update board set order_no=order_no+1 where group_no =? and order_no >= 0";
+				String sql1 = "update board set order_no=order_no+1 where group_no =? and order_no >= ?";
 				pstmt1 = conn.prepareStatement(sql1);
 				
 				pstmt1.setLong(1, groupno);
+				pstmt1.setLong(2, orderNo);
 				
 				pstmt1.executeUpdate();
 				System.out.println("update 완료");
 				
 				//insert
-				String sql2 = "insert into board values(null, ?, ? ,0 ,now(), ?, 0 ,?, ?)";
+				String sql2 = "insert into board values(null, ?, ? ,0 ,now(), ?, ? ,?, ?,0)";
 				
 				pstmt2 = conn.prepareStatement(sql2);
 				
 				pstmt2.setString(1, vo.getTitle());
 				pstmt2.setString(2, vo.getContents());
 				pstmt2.setLong(3, groupno);
-				pstmt2.setLong(4, depth +1);
-				pstmt2.setLong(5, vo.getUserNo());
+				pstmt2.setLong(4, orderNo);
+				pstmt2.setLong(5, depth +1 );
+				pstmt2.setLong(6, vo.getUserNo());
 				
 				pstmt2.executeUpdate();
 				System.out.println("insert 완료");

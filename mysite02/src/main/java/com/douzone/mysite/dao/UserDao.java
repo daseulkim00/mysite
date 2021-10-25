@@ -72,7 +72,7 @@ public class UserDao {
 			pstmt.setString(2, vo.getEmail());
 			pstmt.setString(3, vo.getPassword());
 			pstmt.setString(4, vo.getGender());
-
+			System.out.println(vo);
 			int count = pstmt.executeUpdate();
 			result = count == 1;
 		} catch (SQLException e) {

@@ -25,7 +25,7 @@ public class JoinAction implements Action {
 		vo.setEmail(email);
 		vo.setPassword(password);
 		vo.setGender(gender);
-		
+		System.out.println(vo);
 		new UserDao().insert(vo);
 		
 		MvcUtil.redirect("/mysite02/user?a=joinsuccess", request, response);
