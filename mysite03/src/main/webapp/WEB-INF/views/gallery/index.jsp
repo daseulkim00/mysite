@@ -51,6 +51,7 @@ $(function(){
 				<div>
 					<h1>갤러리</h1>
 					<a href="" id="upload-image">이미지 올리기</a>
+				
 				</div>
 				<ul>
 					<c:forEach items="${list }" var="vo">
@@ -70,9 +71,7 @@ $(function(){
 
 			<div id="dialog-upload-form" title="이미지 업로드" style="display:none">
   				<p class="validateTips normal">이미지와 간단한 코멘트를 입력해 주세요.</p>
-  				<form action="${pageContext.request.contextPath }/gallery/upload" 
-  					  method="post"
-  					  enctype="multipart/form-data">
+  				<form action="${pageContext.request.contextPath }/gallery/upload" method="post" enctype="multipart/form-data">
 					<label>코멘트</label>
 					<input type="text" id="input-comments" name="comments" value="">
 					<label>이미지</label>

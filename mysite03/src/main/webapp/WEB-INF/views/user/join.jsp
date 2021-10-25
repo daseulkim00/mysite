@@ -1,13 +1,80 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title>mysite</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<link href="${pageContext.request.contextPath }/assets/css/user.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/user.css"
+	rel="stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath }/assets/js/jquery/jquery-1.9.0.js">
+	
+</script>
+
+<script>
+	// setTimeout(function() {
+	//AJAX
+
+	/* 	option = {
+				url ="",
+				type ="get",
+				dataType="json",
+				success: function(){
+					console.log("ok");	
+				}
+		}; */
+
+	/* 	$.ajax({
+			url ="/mysite03/hello",
+			type ="get",
+			dataType="json",
+			success: function(response){
+				console.log(response);	
+				p = $("#test");
+				p.html("<strong>" + o.message + "</strong>");
+			}
+		});
+		
+	    } , 3000);
+	 */
+
+	/* 	e = document.getElementById("test") // id element를 찾겟다
+		e.innerHTML = "<strong>Hello World</strong>";
+	}, 3000); */
+
+	//for (i = 0; i < 5; i++) {
+	//	console.log("Hello World:" + i);
+	//}
+	
+	
+	$(function () {    
+		 $("#btn-check-email").click(function () {
+			// 클릭되었을때 되는거 확인
+			var email = $("#email").val(); // var 는 {}안에서 사용 가능 
+			
+			if(email == ''){
+				return;
+			}	
+			
+			console.log(email);
+			$.ajax({
+				url: "${pageContext.request.contextPath }/user/checkemail?email=" + email,
+				type: "get",
+				dataType:"json",
+				success: function (response) {
+					console.log(response);
+				}
+			});
+		})
+	});
+	
+	
+	
+</script>
+
 </head>
 <body>
 	<div id="container">
@@ -21,7 +88,7 @@
 
 					<label class="block-label" for="email">이메일</label>
 					<input id="email" name="email" type="text" value="">
-					<input type="button" value="중복체크">
+					<input id="btn-check-email" type="button" value="중복체크">
 					
 					<label class="block-label">패스워드</label>
 					<input name="password" type="password" value="">
@@ -43,6 +110,8 @@
 				</form>
 			</div>
 		</div>
+		<p id="test">
+		</p>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
 		<c:import url="/WEB-INF/views/includes/footer.jsp" />
 	</div>

@@ -27,6 +27,7 @@ public class GalleryController {
 		return "gallery/index";
 	}
 	
+	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
 	public String upload(
 		@RequestParam("file") MultipartFile file,
