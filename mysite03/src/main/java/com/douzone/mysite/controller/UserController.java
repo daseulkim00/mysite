@@ -59,4 +59,11 @@ public class UserController {
 		return "redirect:/user/update";
 	}	
 	
+	
+	
+	
+	
+	
+	
+	
 }

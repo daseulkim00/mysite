@@ -15,6 +15,12 @@ public class UserService {
 		userRepository.insert(vo);
 	}
 
+	
+	public UserVo getUser(String email) {
+		userRepository.findByEmail(email);
+		return null;
+	}
+	
 	public UserVo getUser(Long no) {
 		return userRepository.findByNo(no);
 	}
@@ -26,4 +32,6 @@ public class UserService {
 	public void updateUser(UserVo userVo) {
 		userRepository.update(userVo);
 	}
+
+	
 }
