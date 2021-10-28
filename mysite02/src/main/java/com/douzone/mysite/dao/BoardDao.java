@@ -31,7 +31,7 @@ public class BoardDao {
 	}
 
 	// select findall
-	public List<BoardDto> findAll() {
+	public List<BoardDto> findAll(int stindex , int List_size) {
 		List<BoardDto> list = new ArrayList<>();
 
 		Connection conn = null;
@@ -43,10 +43,12 @@ public class BoardDao {
 
 			String url = "select a.no, a.title, a.contents, a.hit, a.reg_date as regDate, a.group_no as groupNo, a.order_no as orderNo, a.depth, b.name as userName"
 					+ " from board a ,user b" + " where a.user_no = b.no"
-					+ "  order by group_no desc , order_no desc";
+					+ "  order by group_no desc , order_no desc limit ?,?";
 
 			pstmt = conn.prepareStatement(url);
-
+			pstmt.setInt(1, stindex);
+			pstmt.setInt(2, List_size);
+			
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -409,6 +411,40 @@ public class BoardDao {
 			return result;
 			
 			
+	}
+
+	
+	// 총게시물 갯수 가져오기
+	public int totalcnt() {
+		
+		int count = 0;
+		
+		try {
+			Connection conn = getConnection();
+			
+			String sql = "select count(*) from board";
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			ResultSet rs = pstmt.executeQuery(sql);
+			
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+	
+	
+	public ArrayList<BoardVo> getArticlelist(int page, int limit) {
+		
+		
+		return null;
 	}
 
 }
