@@ -1,8 +1,6 @@
 package com.douzone.mysite.mvc.board;
 
-import java.util.List;
 
-import com.douzone.mysite.vo.UserVo;
 import com.douzone.web.mvc.Action;
 import com.douzone.web.mvc.ActionFactory;
 

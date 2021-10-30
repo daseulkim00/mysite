@@ -39,14 +39,14 @@ public class ListAction implements Action {
 		
 		//1. 기본 값
 		int totalcnt = new BoardDao().totalcnt(); //총 게시물 갯수
-		int pagecnt = (int)Math.ceil(totalcnt/ List_size);
-		int blockcnt =(int)Math.ceil(pagecnt/Page_size); // 5개씩 끊어줌
-		int currentblock =(int)Math.ceil(page/Page_size);
+		int pagecnt = (int)Math.ceil((double)totalcnt/ List_size);
+		int blockcnt =(int)Math.ceil((double)pagecnt/Page_size); // 5개씩 끊어줌
+		int currentblock =(int)Math.ceil((double)page/Page_size);
 		
 		//2. 셋팅
 		if(page > pagecnt) {
 			page = pagecnt;
-			currentblock =(int)Math.ceil(page/Page_size);
+			currentblock =(int)Math.ceil((double)page/Page_size);
 		}
 		
 		if(page < 1) {

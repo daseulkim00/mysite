@@ -32,10 +32,10 @@
 						<th>&nbsp;</th>
 					</tr>
 
-					<c:forEach items="${pvo.list }" var="board" varStatus="status">
+					<c:forEach items="${list }" var="board" varStatus="status">
 						<tr>
 							<%-- ${20*board.depth } --%>
-							<td>${pvo.totalcnt - (pvo.page -1)*pvo.list_size }</td>
+							<td>${pvo.totalcnt - (pvo.page -1)*pvo.list_size - status.index}</td>
 							<c:choose>
 								<c:when test="${board.depth == 0}">
 									<td style="text-align: left; padding-left: 0px"><a
@@ -87,7 +87,7 @@
 						</c:if>
 					</ul>
 				</div>
-				<!-- pager 추가 -->
+		
 
 				<div class="bottom">
 					<a href="${pageContext.request.contextPath }/board?g=writeform"
