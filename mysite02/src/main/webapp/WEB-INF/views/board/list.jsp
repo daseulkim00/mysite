@@ -32,9 +32,9 @@
 						<th>&nbsp;</th>
 					</tr>
 
-					<c:forEach items="${list }" var="board" varStatus="status">
+					<c:forEach items="${list }" var="board" varStatus="status">  
 						<tr>
-							<%-- ${20*board.depth } --%>
+							<%-- ${20*board.depth } --%>                       <!-- for문에서의 i++  -->
 							<td>${pvo.totalcnt - (pvo.page -1)*pvo.list_size - status.index}</td>
 							<c:choose>
 								<c:when test="${board.depth == 0}">
@@ -53,8 +53,7 @@
 							<td>${board.regDate }</td>
 
 							<td><a
-								href="${pageContext.servletContext.contextPath }/board?g=delete&no=${board.no }"
-								class="del">삭제</a></td>
+								href="${pageContext.servletContext.contextPath }/board?g=delete&no=${board.no }" class="del">삭제</a></td>
 						</tr>
 					</c:forEach>
 

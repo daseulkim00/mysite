@@ -5,8 +5,6 @@
 	version="3.0">
 	<display-name>mysite04</display-name>
 
-
-     <!--  객체 설정해준다 -->
 	<context-param>
 		<param-name>contextClass</param-name>
 		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
@@ -14,20 +12,19 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>com.douzone.mysite.config.AppConfig</param-value>
+		<!-- <aop:aspectj-autoproxy />를 없애주고 위에코드를 변경해줌 -->
 	</context-param>
-
 
 	<!-- ContextLoad Listener -->
 	<listener>
-		<listener-class> org.springframework.web.context.ContextLoaderListener
-		</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<!-- 리스너가 제일 먼저 실행되서 다른 코드들 실행시킨다.  -->
 
 	<!-- Encoding Filter -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
-		</filter-class>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
@@ -37,18 +34,24 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-	<!-- Dispatcher Servlet -->
+	<!-- Dispatcher Servlet 서버켜고 접속했을 때(web) -->
 	<servlet>
 		<servlet-name>spring</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet
-		</servlet-class>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+		</init-param>		
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>com.douzone.mysite.config.WebConfig</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
-	</servlet-mapping>
-
+	</servlet-mapping>	
+	
 	<!-- 공통 에러 페이지 -->
 	<error-page>
 		<error-code>404</error-code>
@@ -59,7 +62,7 @@
 		<error-code>500</error-code>
 		<location>/WEB-INF/views/error/500.jsp</location>
 	</error-page>
-
+	
 	<!-- welcome(default) 페이지 -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

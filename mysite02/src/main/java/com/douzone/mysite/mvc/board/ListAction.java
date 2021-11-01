@@ -32,14 +32,15 @@ public class ListAction implements Action {
 			page = 1;
 		}else {
 		
-		page = Integer.parseInt(request.getParameter("page"));
+			page = Integer.parseInt(request.getParameter("page"));
 		}
+		
 		int List_size = 5; //한 화면에 표시할 게시물 개수
-		int Page_size = 5;
+		int Page_size = 5; // 밑에 선택하는 페이지 갯수
 		
 		//1. 기본 값
 		int totalcnt = new BoardDao().totalcnt(); //총 게시물 갯수
-		int pagecnt = (int)Math.ceil((double)totalcnt/ List_size);
+		int pagecnt = (int)Math.ceil((double)totalcnt/ List_size);  // 총 페이지의 갯수 12/5해서 2.4가 나오면 3으로 다 처리
 		int blockcnt =(int)Math.ceil((double)pagecnt/Page_size); // 5개씩 끊어줌
 		int currentblock =(int)Math.ceil((double)page/Page_size);
 		
@@ -55,9 +56,9 @@ public class ListAction implements Action {
 		}
 
 		//3. 계산
-		int beginPage = currentblock == 0 ? 1 : (currentblock - 1) *Page_size + 1;
+		int beginPage = currentblock == 0 ? 1 : (currentblock - 1) *Page_size + 1;        //0 이면 1 0이 아니면 뒤에 식
 										  // (currentblock - 1) *Page_size  = 전 단락의 끝페이지 번호
-		int prevPage = (currentblock > 1) ? (currentblock - 1) * Page_size :0;
+		int prevPage = (currentblock > 1) ? (currentblock - 1) * Page_size : 0;
 		
 		int nextPage = (currentblock < blockcnt) ? currentblock * Page_size+1 : 0;
 		

@@ -22,29 +22,27 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join(@ModelAttribute UserVo vo) { // form 설정하고나서 ㅇ오류나서 join(@ModelAttribute UserVo vo) 이거넣어줌
+	public String join(@ModelAttribute UserVo vo) {
 		return "user/join";
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(@ModelAttribute @Valid UserVo vo ,BindingResult result, Model model) { 
-		// model.addAttribute("userVo",vo) 이거 대신 @ModelAttribute 위에 이걸 써준다
+	public String join(@ModelAttribute @Valid UserVo vo, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 //			List<ObjectError> list = result.getAllErrors();
 //			for(ObjectError error : list) {
 //				System.out.println(error);
-//		}
-			//Map<String, Object> map = result.getModel();
-			//model.addAttribute("userVo",map.get("userVo"));
+//			}
 			
-			model.addAllAttributes(result.getModel());  // allatribute에 map을 넣어주면 전체다 반복해준다
-			return "user/join";    //join jsp에서 알려줘야함(사용자한테 에러를 알려줘야함)
+			model.addAllAttributes(result.getModel());
+			// model.addAttribute("userVo", vo);
+			return "user/join";
 		}
 		
-		// userService.join(vo);
+		
+		userService.join(vo);
 		return "redirect:/user/joinsuccess";
 	}
-	
 	
 	@RequestMapping("/joinsuccess")
 	public String joinsuccess() {
@@ -76,11 +74,12 @@ public class UserController {
 		return "redirect:/user/update";
 	}	
 	
+	@RequestMapping(value="/auth", method=RequestMethod.POST)
+	public void auth() {
+	}
 	
-	
-	
-	
-	
-	
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public void logout() {
+	}
 	
 }
