@@ -1,6 +1,5 @@
 package com.douzone.mysite.controller;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,19 +65,14 @@ public class UserController {
 
 	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public String update(
-			/* @AuthUser UserVo authUser,*/
-			HttpSession httpSession,
-			UserVo userVo) {
-		UserVo authUser = (UserVo)httpSession.getAttribute("authUser");
-		if(authUser == null) return "redirect:/";
-		
+	public String update(@AuthUser UserVo authUser, UserVo userVo) {
 		userVo.setNo(authUser.getNo());
+
 		userService.updateUser(userVo);
 		authUser.setName(userVo.getName());
 		
 		return "redirect:/user/update";
-	}	
+	}
 	
 	@RequestMapping(value="/auth", method=RequestMethod.POST)
 	public void auth() {
