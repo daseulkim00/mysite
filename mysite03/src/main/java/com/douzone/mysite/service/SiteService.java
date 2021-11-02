@@ -8,14 +8,19 @@ import com.douzone.mysite.vo.SiteVo;
 
 @Service
 public class SiteService {
+	
 	@Autowired
 	private SiteRepository siteRepository;
 
-	public SiteVo getSite() {
+	public SiteVo getsite() {
+		
 		return siteRepository.find();
 	}
+	
+	public boolean update(SiteVo siteVo) {      //controller에서 SiteVo sitevo = (SiteVo)siteService.getsite(); 넣어줫으니깐 sitevo를 가져와야함
+		
+		return siteRepository.update(siteVo);  // vo값을 가져와서 넣어줘야한다.
 
-	public boolean update(SiteVo siteVo) {
-		return siteRepository.update(siteVo);
 	}
+	
 }

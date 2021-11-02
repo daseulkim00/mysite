@@ -1,8 +1,5 @@
 package com.douzone.mysite.controller.api;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,26 +10,17 @@ import com.douzone.mysite.dto.JsonResult;
 import com.douzone.mysite.service.UserService;
 import com.douzone.mysite.vo.UserVo;
 
-@RestController("userApiController")  // 이거해놓으면 메세지컨버터트가 작동한다?
+@RestController("userApiController")
 @RequestMapping("/user/api")
 public class UserController {
-	
 	@Autowired
 	private UserService userService;
 	
-	// @ResponseBody 
+	// @ResponseBody
 	// @RequestMapping("/checkemail")
 	@GetMapping("/checkemail")
-	public JsonResult checkemail(@RequestParam(value = "email" , required = true, defaultValue = "") String email) {
-		
+	public JsonResult checkemail(@RequestParam(value="email", required=true, defaultValue="") String email) {
 		UserVo userVo = userService.getUser(email);
-		
-//		Map<String, Object>  map = new HashMap<>();
-//		map.put("result", "success");
-//		map.put("data", userVo != null);
-//		map.put("message", null);
-	
 		return JsonResult.success(userVo != null);
-		
 	}
 }

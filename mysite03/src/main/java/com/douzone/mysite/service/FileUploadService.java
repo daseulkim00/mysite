@@ -13,14 +13,14 @@ import com.douzone.mysite.exception.FileUploadException;
 
 @Service
 public class FileUploadService {
-	private static String SAVE_PATH = "/upload-mysite";
-	private static String URL_BASE = "/upload/images";	
+	private static String SAVE_PATH = "/upload-mysite";  // c 드라이브 저장
+	private static String URL_BASE = "/upload/images";	 // 가상 url
 	
 	public String restoreImage(MultipartFile file) throws FileUploadException {
 		try {
 			File uploadDirectory = new File(SAVE_PATH);
-			if(!uploadDirectory.exists()) {
-				uploadDirectory.mkdir();
+			if(!uploadDirectory.exists()) {  
+				uploadDirectory.mkdir();   // 만약에 폴더가 없으면 폴더 만들어라
 			}
 			
 			if(file.isEmpty()) {
@@ -32,7 +32,7 @@ public class FileUploadService {
 			String saveFilename = generateSaveFilename(extName);
 			
 			byte[] data = file.getBytes();
-			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename);
+			OutputStream os = new FileOutputStream(SAVE_PATH + "/" + saveFilename); // 실제 내c드라이브에 저장되는 경로
 			os.write(data);
 			os.close();
 

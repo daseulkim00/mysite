@@ -12,11 +12,12 @@ public class SiteRepository {
 	private SqlSession sqlSession;
 
 	public SiteVo find() {
-		return sqlSession.selectOne("site.find");
+		return sqlSession.selectOne("site.find");   //site.xml에 find를 찾는다
 	}
-
+	
 	public boolean update(SiteVo vo) {
 		int count = sqlSession.update("site.update", vo);
-		return count == 1;
+		return count == 1;  
 	}
+
 }
