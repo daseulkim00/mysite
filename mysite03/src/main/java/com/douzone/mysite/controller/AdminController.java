@@ -45,7 +45,6 @@ public class AdminController {
 		siteService.update(site); 
 		servletContext.setAttribute("site", site);   //main.jsp에서 ${site.welcome } 써서 들고올려고 사용
 		return "redirect:/admin";
-		
 	}
 	
 	@RequestMapping("/guestbook")
