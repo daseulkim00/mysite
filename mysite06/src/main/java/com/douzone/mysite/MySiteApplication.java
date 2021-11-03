@@ -6,6 +6,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class MySiteApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(MySiteApplication.class, args);
+		SpringApplication.run(MySiteApplication.class, args);   // 부트실행
 	}
 }
