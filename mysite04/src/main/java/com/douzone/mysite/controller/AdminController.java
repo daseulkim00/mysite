@@ -17,7 +17,7 @@ import com.douzone.mysite.service.FileUploadService;
 import com.douzone.mysite.service.SiteService;
 import com.douzone.mysite.vo.SiteVo;
 
-@Auth(role="ADMIN")
+@Auth(role="ADMIN") // admin인 애만 올수있습니다.
 @Controller
 @RequestMapping("/admin")
 public class AdminController {

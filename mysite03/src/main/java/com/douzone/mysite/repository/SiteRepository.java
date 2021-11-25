@@ -10,14 +10,17 @@ import com.douzone.mysite.vo.SiteVo;
 public class SiteRepository {
 	@Autowired
 	private SqlSession sqlSession;
-
+	
 	public SiteVo find() {
-		return sqlSession.selectOne("site.find");   //site.xml에 find를 찾는다
+		return sqlSession.selectOne("site.find");
 	}
 	
-	public boolean update(SiteVo vo) {
-		int count = sqlSession.update("site.update", vo);
+	public boolean update(SiteVo sitevo) {
+		int count = sqlSession.update("site.update", sitevo);
 		return count == 1;  
 	}
 
+
+
+	
 }

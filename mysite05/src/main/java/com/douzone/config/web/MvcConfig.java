@@ -96,7 +96,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter { //WebMvcConfigurerAdapt
 	}
 	
 
-	// Default Servlet Handler
+	// Default Servlet Handler    요건 boot로 가면 사라짐-없어도 잘 돌아감
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();

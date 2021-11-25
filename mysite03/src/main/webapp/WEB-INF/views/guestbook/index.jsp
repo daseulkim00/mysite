@@ -15,7 +15,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="guestbook">
-				<form action="${pageContext.request.contextPath }/guestbook/add" method="post">
+				<form action="${pageContext.request.contextPath }/guestbook/write" method="post">
 					<table>
 						<tr>
 							<td>이름</td><td><input type="text" name="name"></td>
@@ -30,7 +30,8 @@
 					</table>
 				</form>
 				<ul>
-					<c:set var="count" value="${fn:length(list) }"/>
+					<c:set var="count" value="${fn:length(list) }"/> 
+					<!-- fn:length : 문자열의 문자의 개수 혹은 배열이나 컬렉션의 요소의 개수를 리턴,리턴값은 int형의 숫자-->
 					<c:forEach items="${list }" var="vo" varStatus="status">
 						<li>
 							<table>

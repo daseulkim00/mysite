@@ -100,7 +100,7 @@ public class SecurityConfig extends WebMvcConfigurerAdapter {
             .excludePathPatterns("/assets/**");
    }
    
-   // 실행명령이아니다위
+   // 실행명령이아니다
    @RequestMapping(value = "/auth", method = RequestMethod.POST)
    public void auth() {
 	   

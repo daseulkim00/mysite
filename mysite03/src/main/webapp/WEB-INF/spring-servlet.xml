@@ -102,7 +102,7 @@
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
-				<value>messages/messages_ko</value>
+				<value>messages/message_ko</value>
 			</list>
 		</property>
 	</bean>
